@@ -3,11 +3,34 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+
+console.log('process.env.PORT: ' + process.env.PORT);
+console.log('process.env.MONGODB_USER: ' + process.env.MONGODB_USER);
+console.log('process.env.MONGODB_PASS: ' + process.env.MONGODB_PASS);
+console.log('process.env.MONGODB_COLLECTION: ' + process.env.MONGODB_COLLECTION);
+
+
+// setup mongoDB connection
+mongoose.set('strictQuery', false);
+var mongoDB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.eehabcx.mongodb.net/${process.env.MONGODB_COLLECTION}?retryWrites=true&w=majority&appName=Cluster0`;
+console.log(mongoDB);
+
+main().catch(err => console.log(err));
+async function main() {
+  try {
+    await mongoose.connect(mongoDB);
+    console.log('Connected to MongoDB');
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err);
+  }
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
