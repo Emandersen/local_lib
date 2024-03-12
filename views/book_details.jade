@@ -3,10 +3,10 @@ extends layout
 block content
     .container
         .row
-            .col-md-12
+            .col-md-12.pr-3
                 .card
                     .card-body
                         h1.card-title= title
                         h2.card-subtitle.mb-2.text-muted Author: #{book.author.name}
                         h3.card-subtitle.mb-2.text-muted Genre: #{book.genre.map(genre => genre.name).join(', ')}
-                        p.card-text= book.summary
+                        p.card-text.text-break= book.summary

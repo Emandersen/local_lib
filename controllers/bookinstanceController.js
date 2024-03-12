@@ -1,14 +1,20 @@
+const bookinstance = require("../models/bookinstance");
 const BookInstance = require("../models/bookinstance");
 const asyncHandler = require("express-async-handler");
+const dateFormat = require("luxon").DateTime;
 
 // Display list of all BookInstances.
 exports.bookinstance_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance list");
+  const bookInstance_total = await bookinstance.find().populate("book").exec();
+  res.render("bookinstance_list", {
+    title: "Book Instance List",
+    bookinstance_list: bookInstance_total,
+  });
 });
 
 // Display detail page for a specific BookInstance.
 exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
-  res.send(`NOT IMPLEMENTED: BookInstance detail: ${req.params.id}`);
+  res.send("NOT IMPLEMENTED: BookInstance detail: " + req.params.id);
 });
 
 // Display BookInstance create form on GET.

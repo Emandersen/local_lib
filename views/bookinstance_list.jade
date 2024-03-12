@@ -1,0 +1,25 @@
+extends layout 
+
+block content
+    h1 Book Instance List
+    if bookinstance_list.length
+        table.table.table-striped
+            thead
+                tr
+                    th Title
+                    th Status
+                    th Imprint
+                    th Due Back
+                    th
+            tbody
+                each bookinstance in bookinstance_list
+                    tr
+                        td
+                            a(href=bookinstance.url)= bookinstance.book.title
+                        td(class=bookinstance.status === 'Available' ? 'text-success' : 'text-danger')= bookinstance.status
+                        td= bookinstance.imprint
+                        td= bookinstance.due_back_formatted
+                        td
+                            a.btn.btn-primary(href=bookinstance.url) Details
+    else
+        p No book instances.

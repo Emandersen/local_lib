@@ -4,6 +4,9 @@ const Genre = require("../models/genre");
 const BookInstance = require("../models/bookinstance");
 
 const asyncHandler = require("express-async-handler");
+//////////////////
+/* Display books*/
+//////////////////
 
 exports.index = asyncHandler(async (req, res, next) => {
   // Get details of books, book instances, authors and genre counts (in parallel)
@@ -48,6 +51,9 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
     res.render("book_details", { title: book.title, book: book});
 });
 
+////////////////
+/* Edit books */
+////////////////
 
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
