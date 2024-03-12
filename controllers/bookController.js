@@ -44,11 +44,15 @@ exports.book_list = asyncHandler(async (req, res, next) => {
 
 // Display detail page for a specific book.
 exports.book_detail = asyncHandler(async (req, res, next) => {
-  const book = await Book.findById(req.params.id) 
+  const book = await Book.findById(req.params.id)
     .populate("author")
     .populate("genre")
     .exec();
-    res.render("book_details", { title: book.title, book: book});
+
+  const bookInstances = await BookInstance.find({ 'book': req.params.id })
+    .exec();
+
+  res.render("book_details", { title: book.title, book: book, book_instances: bookInstances });
 });
 
 ////////////////

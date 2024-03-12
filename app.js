@@ -11,16 +11,31 @@ var catalogRouter = require('./routes/catalog');
 var app = express();
 
 
-console.log('process.env.PORT: ' + process.env.PORT);
-console.log('process.env.MONGODB_USER: ' + process.env.MONGODB_USER);
-console.log('process.env.MONGODB_PASS: ' + process.env.MONGODB_PASS);
-console.log('process.env.MONGODB_COLLECTION: ' + process.env.MONGODB_COLLECTION);
+const envs = {
+  port: process.env.PORT,
+  user: process.env.MONGODB_USER,
+  pass: process.env.MONGODB_PASS,
+  collection: process.env.MONGODB_COLLECTION
+};
+
+for (const [key, value] of Object.entries(envs)) {
+  if (!value) {
+    console.error(`Missing environment variable: ${key}`);
+    console.error('If you are running this app locally, make sure to create a .env file in the root directory with the following content:');
+    for (const [key, value] of Object.entries(envs)) {
+      console.error(`${key}=<value>`);
+    };
+    process.exit(1);
+  } else {
+    console.log(`Environment variable found: ${key} = ${value}`);
+  }
+}
 
 
 // setup mongoDB connection
 mongoose.set('strictQuery', false);
 var mongoDB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.eehabcx.mongodb.net/${process.env.MONGODB_COLLECTION}?retryWrites=true&w=majority&appName=Cluster0`;
-console.log(mongoDB);
+
 
 main().catch(err => console.log(err));
 async function main() {

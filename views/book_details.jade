@@ -10,3 +10,16 @@ block content
                         h2.card-subtitle.mb-2.text-muted Author: #{book.author.name}
                         h3.card-subtitle.mb-2.text-muted Genre: #{book.genre.map(genre => genre.name).join(', ')}
                         p.card-text.text-break= book.summary
+
+                            if book_instances.length > 0
+                                h3.card-subtitle.mb-2.text-muted Available copies
+                                ul
+                                    each book_instance in book_instances
+                                        li
+                                            a(href='/catalog/bookinstance/#{book_instance.id}')= book_instance.imprint
+                                            if book_instance.status.name === 'Available'
+                                                p(style='color: green') Available
+                                            else
+                                                p(style='color: red') Not available
+                            else
+                                p.card-text.text-danger No copies available

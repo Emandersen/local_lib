@@ -1,0 +1,34 @@
+extends layout 
+
+block content 
+    h1 Book: #{bookinstance.book.title}
+    p 
+        strong Status: 
+        if bookinstance.status == 'Available'
+            span(style='color: green') Available
+        else
+            span(style='color: red') Not Available
+    p
+        strong Imprint: 
+        span #{bookinstance.imprint}
+    p
+        strong Due back: 
+        if bookinstance.status == 'Available'
+            span Not Applicable
+        else
+            span #{bookinstance.due_back_formatted}
+    p
+        strong ID: 
+        span #{bookinstance.book.id}
+    p
+        strong Summary: 
+        span #{bookinstance.book.summary}
+    p
+        strong ISBN: 
+        span #{bookinstance.book.isbn}
+    p
+        strong Author: 
+        span #{bookinstance.book.author}
+    p
+
+    

@@ -15,7 +15,7 @@ block content
                 each bookinstance in bookinstance_list
                     tr
                         td
-                            a(href=bookinstance.url)= bookinstance.book.title
+                            p= bookinstance.book.title
                         td(class=bookinstance.status === 'Available' ? 'text-success' : 'text-danger')= bookinstance.status
                         td= bookinstance.imprint
                         td= bookinstance.due_back_formatted

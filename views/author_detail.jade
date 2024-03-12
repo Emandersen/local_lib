@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+    h1= author.name
+    ul
+        each book, i in author_books
+            li
+                a(href='/book/#{book.id}')= book.title
+                p Written by: #{book.author}
+                p Summary: #{book.summary}
+                p ISBN: #{book.isbn}
