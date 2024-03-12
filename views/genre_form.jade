@@ -1,0 +1,10 @@
+extends layout 
+
+block content
+  h1= title
+  form(method='post', action='/genre/create')
+    div
+      label(for='name') Name:
+      input(type='text', name='name', id='name')
+    div
+      input(type='submit', value='Submit')
