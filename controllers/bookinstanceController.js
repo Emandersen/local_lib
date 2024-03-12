@@ -20,6 +20,8 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
     err.status = 404;
     return next(err);
   }
+
+  
   res.render("bookinstance_detail", {
     title: "Copy: " + bookinstance_detail.book.title,
     bookinstance: bookinstance_detail,
