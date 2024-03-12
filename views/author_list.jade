@@ -1,0 +1,10 @@
+extends layout 
+
+block content
+    h1= title
+
+    ul.list-group
+        each author in authors
+            li.list-group-item
+                a(href=author.url) #[strong !{author.name}]
+                |  - #{author.date_of_birth_formatted ? author.date_of_birth_formatted : 'NULL'} - #{author.date_of_death_formatted ? author.date_of_death_formatted : 'NULL'}
