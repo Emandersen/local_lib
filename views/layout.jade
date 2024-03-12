@@ -3,5 +3,27 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    // Bootstrap
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    style.
+      .sidebar {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-right: 1px solid #dee2e6;
+      }
+      .main-content {
+        padding: 20px;
+      }
   body
-    block content
+    div.container
+      div.row
+        div.col-md-2.sidebar
+          h3 Catalog
+          div.list-group
+            a.list-group-item.list-group-item-action(href='/catalog/books') Books
+            a.list-group-item.list-group-item-action(href='/catalog/authors') Authors
+            a.list-group-item.list-group-item-action(href='/catalog/bookinstances') Book Instances
+            a.list-group-item.list-group-item-action(href='/catalog/genres') Genres
+          p Explore our extensive catalog of books, authors, genres, and book instances.
+        div.col-md-10.main-content
+          block content

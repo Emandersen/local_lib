@@ -1,7 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p This is the home page
-  
+  .jumbotron
+    h1.display-4= title
+    p.lead Welcome to #[em LocalLibrary], your one-stop resource for managing and exploring our extensive book collection.
+  h1 Dynamic content
+
+  p The library has the following record counts:
+
+  ul.list-group
+    li.list-group-item #[strong Books:] !{book_count}
+    li.list-group-item #[strong Copies:] !{book_instance_count}
+    li.list-group-item #[strong Copies available:] !{book_instance_available_count}
+    li.list-group-item #[strong Authors:] !{author_count}
+    li.list-group-item #[strong Genres:] !{genre_count}
