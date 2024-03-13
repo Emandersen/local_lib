@@ -1,10 +1,10 @@
-extends layout 
+extends layout
 
 block content
-  h1= title
-  form(method='post', action='/genre/create')
-    div
-      label(for='name') Name:
-      input(type='text', name='name', id='name')
-    div
-      input(type='submit', value='Submit')
+    h1 Create Genre
+    form(method="POST", action="/genre/create")
+        div
+            label(for="name") Name:
+            input(type="text", id="name", name="name", required, minlength="3")
+        div
+            input(type="submit", value="Submit")
