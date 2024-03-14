@@ -61,7 +61,7 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
 
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Book create GET");
+  res.render("book_form", { title: "Create Book" });
 });
 
 // Handle book create on POST.

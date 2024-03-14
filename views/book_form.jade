@@ -5,23 +5,24 @@ block content
 
     form(method='POST')
         div.form-group
-            label(for='book') Book:
-            select#book.form-control(type='text', name='book', required)
-                option(value='') 
-                - for (var book in books) {
-                    option(value=books[book]._id, selected=(bookinstance && bookinstance.book == books[book]._id) ? 'selected' : '')= books[book].title
-                - }
+            label(for='title') Title:
+            input#title.form-control(type='text', name='title', required value=(undefined===book ? '' : book.title))
         div.form-group
-            label(for='imprint') Imprint:
-            input#imprint.form-control(type='text', name='imprint', required value=(undefined===bookinstance ? '' : bookinstance.imprint))
+            label(for='author') Author:
+            select#author.form-control(name='author', required)
+                if authors
+                    each author in authors
+                        option(value=author.id, selected=(undefined!==book && book.author && book.author.id==author.id) ? 'selected' : '')= author.name
         div.form-group
-            label(for='status') Status:
-            select#status.form-control(type='text', name='status', required)
-                option(value='Available', selected=(bookinstance && bookinstance.status == 'Available') ? 'selected' : '') Available
-                option(value='Maintenance', selected=(bookinstance && bookinstance.status == 'Maintenance') ? 'selected' : '') Maintenance
-                option(value='Loaned', selected=(bookinstance && bookinstance.status == 'Loaned') ? 'selected' : '') Loaned
-                option(value='Reserved', selected=(bookinstance && bookinstance.status == 'Reserved') ? 'selected' : '') Reserved
+            label(for='summary') Summary:
+            textarea#summary.form-control(name='summary', required)= (undefined===book ? '' : book.summary)
         div.form-group
-            label(for='due_back') Due back:
-            input#due_back.form-control(type='date', name='due_back', required value=(undefined===bookinstance ? '' : bookinstance.due_back))
+            label(for='isbn') ISBN:
+            input#isbn.form-control(type='text', name='isbn', required value=(undefined===book ? '' : book.isbn))
+        div.form-group
+            label(for='genre') Genre:
+            select#genre.form-control(name='genre', required)
+                if genres
+                    each genre in genres
+                        option(value=genre.id, selected=(undefined!==book && book.genre && book.genre.id==genre.id) ? 'selected' : '')= genre.name
         button.btn.btn-primary(type='submit') Submit
