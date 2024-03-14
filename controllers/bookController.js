@@ -4,6 +4,7 @@ const Genre = require("../models/genre");
 const BookInstance = require("../models/bookinstance");
 
 const asyncHandler = require("express-async-handler");
+const {body, validationResult} = require("express-validator")
 //////////////////
 /* Display books*/
 //////////////////
@@ -61,13 +62,51 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
 
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
-  res.render("book_form", { title: "Create Book" });
+  const authors = await Author.find().exec();
+  const genres = await Genre.find().exec();
+
+  res.render("book_form", {
+    title: "Create Book",
+    authors: authors,
+    genres: genres
+  });
 });
 
 // Handle book create on POST.
-exports.book_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Book create POST");
-});
+exports.book_create_post = [
+  body("title", "Title must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("author").trim().isLength({ min: 1 }).escape(),
+  body("summary", "Summary must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("isbn", "ISBN must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("genre", "Genre must not be empty.").trim().isLength({ min: 1 }).escape(),
+  
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const book = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      summary: req.body.summary,
+      isbn: req.body.isbn,
+      genre: req.body.genre
+    })
+
+    if (!errors.isEmpty()) {
+      // If there are errors, render the form again with sanitized values/error messages.
+      res.render('book_form', {
+          title: 'Create Book',
+          errors: errors.array(),
+          book: book
+      });
+      return;
+      }
+      else {
+          // Data from form is valid.
+          // Save the new Book object.
+          await book.save();
+          res.redirect(book.url);
+    }
+  }),
+]
 
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res, next) => {
