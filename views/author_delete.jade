@@ -1,0 +1,13 @@
+extends layout 
+//Displays a simple drop down and delete menu
+block content 
+    h1= title
+    form(method='POST')
+        div.form-group
+            label(for='author') Author:
+            select#author.form-control(name='author', required)
+                if authors
+                    each author, i in authors
+                        option(value=author._id)= author.name
+                    
+        button.btn.btn-primary(type='submit') Delete

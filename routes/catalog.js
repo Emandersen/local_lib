@@ -44,13 +44,13 @@ router.get("/author/create", author_controller.author_create_get);
 router.post("/author/create", author_controller.author_create_post);
 
 // del author GET
-router.get("/author/:id/delete", author_controller.author_delete_get);
+router.get("/author/delete", author_controller.author_delete_get);
 
 // del author POST
 router.post("/author/:id/delete", author_controller.author_delete_post);
 
 // update author GET
-router.get("/author/:id/update", author_controller.author_update_get);
+router.get("/author/update", author_controller.author_update_get);
 
 // update author POST
 router.post("/author/:id/update", author_controller.author_update_post);
