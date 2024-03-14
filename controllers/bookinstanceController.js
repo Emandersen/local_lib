@@ -1,12 +1,12 @@
-const bookinstance = require("../models/bookinstance");
 const BookInstance = require("../models/bookinstance");
+const Book = require("../models/book");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const dateFormat = require("luxon").DateTime;
 
 // Display list of all BookInstances.
 exports.bookinstance_list = asyncHandler(async (req, res, next) => {
-  const bookInstance_total = await bookinstance.find().populate("book").exec();
+  const bookInstance_total = await BookInstance.find().populate("book").exec();
   res.render("bookinstance_list", {
     title: "Book Instance List",
     bookinstance_list: bookInstance_total,
@@ -31,8 +31,17 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
 
 // Display BookInstance create form on GET.
 exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
-  res.render("bookinstance_form", { title: "Create BookInstance" });
+  const books = await Book.find({}, "title");
+
+  res.render("bookinstance_form", {
+    title: "Create BookInstance",
+    books: books,
+    selected_book: "",
+    errors: [],
+    bookinstance: "",
+  });
 });
+
 
 
 // Handle BookInstance create on POST.
@@ -43,14 +52,34 @@ exports.bookinstance_create_post = [
   body("due back", "Invalid date").optional({ checkFalsy: true }).isISO8601().toDate(),
 
   asyncHandler(async (req, res, next) => {
-    const books = await Book.find({}, "title");
-    res.render("bookinstance_form", {
-      title: "Create BookInstance",
-      book_list: books,
-      selected_book: req.body.book,
-      errors: [],
-      bookinstance: req.body,
+    const errors = validationResult(req);
+
+    // Create a new BookInstance object with sanitized/validated data
+    const bookinstance = new BookInstance({
+        book: req.body.book,
+        imprint: req.body.imprint,
+        status: req.body.status,
+        due_back: req.body.due_back
     });
+
+    if (!errors.isEmpty()) {
+        // If there are errors, render the form again with sanitized values/error messages.
+        const books = await Book.find({}, 'title');
+        res.render('bookinstance_form', {
+            title: 'Create BookInstance',
+            books: books,
+            selected_book: bookinstance.book,
+            errors: errors.array(),
+            bookinstance: bookinstance
+        });
+        return;
+    }
+    else {
+        // Data from form is valid.
+        // Save the new BookInstance object.
+        await bookinstance.save();
+        res.redirect(bookinstance.url);
+    }
   }),
 ];
 
