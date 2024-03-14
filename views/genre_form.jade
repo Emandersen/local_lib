@@ -1,10 +1,16 @@
 extends layout
 
 block content
-    h1 Create Genre
-    form(method="POST", action="/genre/create")
-        div
-            label(for="name") Name:
-            input(type="text", id="name", name="name", required, minlength="3")
-        div
-            input(type="submit", value="Submit")
+
+  h1 #{title}
+
+  form(method='POST')
+    div.form-group
+      label(for='name') Genre:
+      input#name.form-control(type='text', placeholder='Fantasy, Poetry etc.' name='name' required value=(undefined===genre ? '' : genre.name) )
+    button.btn.btn-primary(type='submit') Submit
+
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

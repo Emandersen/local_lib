@@ -1,6 +1,7 @@
 const bookinstance = require("../models/bookinstance");
 const BookInstance = require("../models/bookinstance");
 const asyncHandler = require("express-async-handler");
+const { body, validationResult } = require("express-validator");
 const dateFormat = require("luxon").DateTime;
 
 // Display list of all BookInstances.
@@ -30,13 +31,31 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
 
 // Display BookInstance create form on GET.
 exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance create GET");
+  res.render("bookinstance_form", { title: "Create BookInstance" });
 });
 
+
 // Handle BookInstance create on POST.
-exports.bookinstance_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance create POST");
-});
+exports.bookinstance_create_post = [
+  body("book", "Book must be specified").trim().isLength({ min: 1 }).escape(),
+  body("imprint", "Imprint must be specified").trim().isLength({ min: 1 }).escape(),
+  body("Status").escape(),
+  body("due back", "Invalid date").optional({ checkFalsy: true }).isISO8601().toDate(),
+
+  asyncHandler(async (req, res, next) => {
+    const books = await Book.find({}, "title");
+    res.render("bookinstance_form", {
+      title: "Create BookInstance",
+      book_list: books,
+      selected_book: req.body.book,
+      errors: [],
+      bookinstance: req.body,
+    });
+  }),
+];
+
+
+
 
 // Display BookInstance delete form on GET.
 exports.bookinstance_delete_get = asyncHandler(async (req, res, next) => {

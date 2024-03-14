@@ -1,0 +1,27 @@
+extends layout 
+
+block content 
+    h1 #{title}
+
+    form(method='POST')
+        div.form-group
+            label(for='book') Book:
+            select#book.form-control(type='text', name='book', required)
+                option(value='') 
+                - for (var book in books) {
+                    option(value=book.id, selected=(bookinstance && bookinstance.book && bookinstance.book.id == book.id) ? 'selected' : '')= book.title
+                - }
+        div.form-group
+            label(for='imprint') Imprint:
+            input#imprint.form-control(type='text', name='imprint', required value=(undefined===bookinstance ? '' : bookinstance.imprint))
+        div.form-group
+            label(for='status') Status:
+            select#status.form-control(type='text', name='status', required)
+                option(value='Available', selected=(bookinstance && bookinstance.status == 'Available') ? 'selected' : '') Available
+                option(value='Maintenance', selected=(bookinstance && bookinstance.status == 'Maintenance') ? 'selected' : '') Maintenance
+                option(value='Loaned', selected=(bookinstance && bookinstance.status == 'Loaned') ? 'selected' : '') Loaned
+                option(value='Reserved', selected=(bookinstance && bookinstance.status == 'Reserved') ? 'selected' : '') Reserved
+        div.form-group
+            label(for='due_back') Due back:
+            input#due_back.form-control(type='date', name='due_back', required value=(undefined===bookinstance ? '' : bookinstance.due_back))
+        button.btn.btn-primary(type='submit') Submit
