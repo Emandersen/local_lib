@@ -3,7 +3,7 @@
 
 const fs = require('fs');
 const configFileName = './config.env';
-const defaultConfig = 'PORT=3000\n MONGODB_USER = Database_username\n MONGODB_PASS = database_password\n MONGODB_COLLECTION = collection_name\n';
+const defaultConfig = 'PORT=3000\nMONGODB_USER=Database_username\nMONGODB_PASS=database_password\n MONGODB_COLLECTION=collection_name\n';
 
 
 
