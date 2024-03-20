@@ -21,7 +21,7 @@ const envs = {
 for (const [key, value] of Object.entries(envs)) {
   if (!value) {
     console.error(`Missing environment variable: ${key}`);
-    console.error('If you are running this app locally, make sure to create a .env file in the root directory with the following content:');
+    console.error('If you are running this app locally, make sure to populate the .env file in the root directory with the following content:');
     for (const [key, value] of Object.entries(envs)) {
       console.error(`${key}=<value>`);
     };

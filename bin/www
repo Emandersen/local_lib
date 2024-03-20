@@ -2,12 +2,17 @@
 
 
 const fs = require('fs');
+const configFileName = './config.env';
+const defaultConfig = 'PORT=3000\n MONGODB_USER = Database_username\n MONGODB_PASS = database_password\n MONGODB_COLLECTION = collection_name\n';
+
+
+
 
 // Load environment variables from .secret.env
 
 try {
  
-const env = fs.readFileSync('./secret.env', { encoding: 'utf8', flag: 'r' });
+const env = fs.readFileSync(configFileName, { encoding: 'utf8', flag: 'r' });
 const lines = env.split('\n');
 
 for (let line of lines) {
@@ -17,9 +22,13 @@ for (let line of lines) {
     process.env[key] = value;
   }
   }
-  console.log('Environment variables loaded from "secret.env"');
+  console.log('Environment variables loaded from ' + configFileName);
 } catch (err) {
-  console.log('No .secret.env file found');
+  fs.writeFileSync(configFileName, '', { encoding: 'utf8', flag: 'w' });
+  fs.appendFileSync(configFileName, defaultConfig, { encoding: 'utf8', flag: 'a' });
+  console.log('No .' + configFileName + ' file found - config file is required to run the app.');
+  console.log('Please fill in the config.env file and restart the app.')
+  process.exit(1);
 }
 
 startup();

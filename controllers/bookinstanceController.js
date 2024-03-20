@@ -13,6 +13,7 @@ exports.bookinstance_list = asyncHandler(async (req, res, next) => {
   });
 });
 
+
 // Display detail page for a specific BookInstance.
 exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
   const bookinstance_detail = await BookInstance.findById(req.params.id).populate("book").exec();

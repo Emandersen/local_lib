@@ -85,7 +85,7 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
       title: "Delete Author",
       author: author,
       author_books: allBooksByAuthor,
-    });
+    });a
     return;
   } else {
     // Author has no books. Delete object and redirect to the list of authors.
