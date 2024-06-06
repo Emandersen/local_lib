@@ -1,13 +1,25 @@
-extends layout 
-//Displays a simple drop down and delete menu
-block content 
-    h1= title
-    form(method='POST')
-        div.form-group
-            label(for='author') Author:
-            select#author.form-control(name='author', required)
-                if authors
-                    each author, i in authors
-                        option(value=author._id)= author.name
-                    
-        button.btn.btn-primary(type='submit') Delete
+extends layout
+
+block content
+
+  h1 #{title}: #{author.name}
+  p= author.lifespan
+
+  if author_books.length
+
+    p #[strong Delete the following books before attempting to delete this author.]
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Books
+      dl
+        each book in author_books
+          dt
+            a(href=book.url) #{book.title}
+          dd #{book.summary}
+
+  else
+    p Do you really want to delete this Author?
+
+    form(method='POST', action='/catalog/author/' + (author._id ? author._id : author.id) + '/delete')
+      div.form-group
+        input#authorid.form-control(type='hidden', name='authorid', value=(author._id ? author._id : author.id) )
+      button.btn.btn-primary(type='submit') Delete

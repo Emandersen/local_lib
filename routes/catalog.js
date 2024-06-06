@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 
 const book_controller = require("../controllers/bookController");
 const author_controller = require("../controllers/authorController");
 const bookinstance_controller = require("../controllers/bookinstanceController");
 const genre_controller = require("../controllers/genreController");
 
+
+
 /* Genre routes */
-
-
 router.get("/", book_controller.index);
 
 // Create book GET
@@ -43,14 +44,14 @@ router.get("/author/create", author_controller.author_create_get);
 // Create author POST
 router.post("/author/create", author_controller.author_create_post);
 
-// del author GET
-router.get("/author/delete", author_controller.author_delete_get);
+// Delete author GET
+router.get("/author/:id/delete", author_controller.author_delete_get);
 
-// del author POST
+// Delete author POST
 router.post("/author/:id/delete", author_controller.author_delete_post);
 
 // update author GET
-router.get("/author/update", author_controller.author_update_get);
+router.get("/author/:id/update", author_controller.author_update_get);
 
 // update author POST
 router.post("/author/:id/update", author_controller.author_update_post);
@@ -112,5 +113,13 @@ router.get("/genre/:id", genre_controller.genre_detail);
 
 // genre list
 router.get("/genres", genre_controller.genre_list);
+
+router.post("/toggle-database", (req, res) => {
+    // Set the environment variable to the value of the selected radio button
+    process.env.DB_TYPE = req.body.db;
+
+    // Redirect back to the previous page
+    res.redirect(req.header('Referer'));
+});
 
 module.exports = router;

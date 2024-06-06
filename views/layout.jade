@@ -22,6 +22,9 @@ html
     div.container
       div.row
         div.col-md-2.sidebar
+
+          a.list-group-item.list-group-item-action(href='/') Home
+
           h3 Catalog
           div.list-group
             a.list-group-item.list-group-item-action(href='/catalog/books') Books
@@ -35,17 +38,11 @@ html
           a.list-group-item.list-group-item-action(href='/catalog/genre/create') Create Genre 
           a.list-group-item.list-group-item-action(href='/catalog/bookinstance/create') Create Book Instance
 
-          h3 Deletion Forms
-          a.list-group-item.list-group-item-action(href='/catalog/book/delete') Delete Book
-          a.list-group-item.list-group-item-action(href='/catalog/author/delete') Delete Author
-          a.list-group-item.list-group-item-action(href='/catalog/genre/delete') Delete Genre
-          a.list-group-item.list-group-item-action(href='/catalog/bookinstance/delete') Delete Book Instance
-
-          h3 Update Forms
-          a.list-group-item.list-group-item-action(href='/catalog/book/update') Update Book
-          a.list-group-item.list-group-item-action(href='/catalog/author/update') Update Author
-          a.list-group-item.list-group-item-action(href='/catalog/genre/update') Update Genre
-          a.list-group-item.list-group-item-action(href='/catalog/bookinstance/update') Update Book Instance
-          
         div.col-md-10.main-content
+          // Search bar
+          form(action='/search', method='GET')
+            div.form-group
+              input.form-control(type='text', name='q', placeholder='Search books and authors...')
+            button.btn.btn-primary(type='submit') Search
+
           block content

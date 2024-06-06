@@ -31,4 +31,6 @@ block content
         span #{bookinstance.book.author}
     p
 
-    
+
+    a(href='/catalog/bookinstance/' + (bookinstance._id ? bookinstance._id : bookinstance.id) + '/update', class='btn btn-primary') Update Book Instance
+    a(href='/catalog/bookinstance/' + (bookinstance._id ? bookinstance._id : bookinstance.id) + '/delete', class='btn btn-danger') Delete Book Instance

@@ -2,6 +2,8 @@ extends layout
 
 block content 
     h1= author.name
+    if author.author_image
+        img(src=author.author_image, alt=author.name, class="img-thumbnail img-fluid", style="width: 150; height: 150px;")
     ul
         each book, i in author_books
             li
@@ -9,3 +11,8 @@ block content
                 p Written by: #{book.author}
                 p Summary: #{book.summary}
                 p ISBN: #{book.isbn}
+
+    hr
+    p
+    a(href=author.url+'/delete', class='btn btn-danger') Delete author
+    a(href=author.url+'/update', class='btn btn-primary') Update author

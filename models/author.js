@@ -8,6 +8,7 @@ const AuthorSchema = new Schema({
   family_name: { type: String, required: true, maxLength: 100 },
   date_of_birth: { type: Date },
   date_of_death: { type: Date },
+  author_image: { type: String },
 });
 
 // Virtual for author's full name
@@ -24,7 +25,6 @@ AuthorSchema.virtual("name").get(function () {
 
 // Virtual for author's URL
 AuthorSchema.virtual("url").get(function () {
-  // We don't use an arrow function as we'll need the this object
   return `/catalog/author/${this._id}`;
 });
 

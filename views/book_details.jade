@@ -7,19 +7,26 @@ block content
                 .card
                     .card-body
                         h1.card-title= title
-                        h2.card-subtitle.mb-2.text-muted Author: #{book.author.name}
-                        h3.card-subtitle.mb-2.text-muted Genre: #{book.genre.map(genre => genre.name).join(', ')}
+                        - var authorName = book.author.name ? book.author.name : book.author
+                        h2.card-subtitle.mb-2.text-muted Author: #{authorName}
+                        h3.card-subtitle.mb-2.text-muted Genre: #{book.genre ? book.genre.map(genre => genre.name).join(', ') : book.genres.join(', ')}
                         p.card-text.text-break= book.summary
 
-                            if book_instances.length > 0
-                                h3.card-subtitle.mb-2.text-muted Available copies
-                                ul
-                                    each book_instance in book_instances
-                                        li
-                                            a(href='/catalog/bookinstance/#{book_instance.id}')= book_instance.imprint
-                                            if book_instance.status.name === 'Available'
-                                                p(style='color: green') Available
-                                            else
-                                                p(style='color: red') Not available
-                            else
-                                p.card-text.text-danger No copies available
+                        
+                        form(method='POST', action='/catalog/book/' + (book._id ? book._id : book.id) + '/delete')
+                            button.btn.btn-danger(type='submit') Delete Book
+
+                        a(href='/catalog/book/' + (book._id ? book._id : book.id) + '/update', class='btn btn-primary') Update Book
+
+                        if book_instances.length > 0
+                            h3.card-subtitle.mb-2.text-muted Available copies
+                            ul
+                                each book_instance in book_instances
+                                    li
+                                        a(href='/catalog/bookinstance/#{book_instance.id}')= book_instance.imprint
+                                        if book_instance.status.name === 'Available'
+                                            p(style='color: green') Available
+                                        else
+                                            p(style='color: red') Not available
+                        else
+                            p.card-text.text-danger No copies available

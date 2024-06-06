@@ -14,3 +14,14 @@ block content
     li.list-group-item #[strong Copies available:] !{book_instance_available_count}
     li.list-group-item #[strong Authors:] !{author_count}
     li.list-group-item #[strong Genres:] !{genre_count}
+
+  // Toggle database type
+  h2 Database type
+  form(method='POST', action='/catalog/toggle-database')
+    input(type='radio', name='db', value='mongodb', id='mongodb', checked=(db_type==='mongodb') ? 'checked' : undefined)
+    label(for='mongodb') MongoDB
+    br
+    input(type='radio', name='db', value='mysql', id='mysql', checked=(db_type==='mysql') ? 'checked' : undefined)
+    label(for='mysql') MySQL
+    br
+    button.btn.btn-primary(type='submit') Submit

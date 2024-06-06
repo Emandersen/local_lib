@@ -4,6 +4,8 @@ block content
     h1 #{title}
 
     form(method='POST')
+        if book
+            input(type='hidden', name='_id', value=book._id)
         div.form-group
             label(for='title') Title:
             input#title.form-control(type='text', name='title', required value=(undefined===book ? '' : book.title))
@@ -12,7 +14,7 @@ block content
             select#author.form-control(name='author', required)
                 if authors
                     each author in authors
-                        option(value=author.id, selected=(undefined!==book && book.author && book.author.id==author.id) ? 'selected' : '')= author.name
+                        option(value=author.id, selected=(undefined!==book && book.author && book.author.id==author.id) ? 'selected' : '')= author.first_name + ' ' + author.family_name
         div.form-group
             label(for='summary') Summary:
             textarea#summary.form-control(name='summary', required)= (undefined===book ? '' : book.summary)
@@ -21,8 +23,8 @@ block content
             input#isbn.form-control(type='text', name='isbn', required value=(undefined===book ? '' : book.isbn))
         div.form-group
             label(for='genre') Genre:
-            select#genre.form-control(name='genre', required)
+            select#genre.form-control(name='genre', multiple)
                 if genres
                     each genre in genres
-                        option(value=genre.id, selected=(undefined!==book && book.genre && book.genre.id==genre.id) ? 'selected' : '')= genre.name
+                        option(value=genre.id, selected=(undefined!==book && book.genre && book.genre.some(g => g.id==genre.id)) ? 'selected' : '')= genre.name
         button.btn.btn-primary(type='submit') Submit

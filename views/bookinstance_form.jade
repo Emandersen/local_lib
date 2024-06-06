@@ -4,14 +4,19 @@ block content
     h1 #{title}
 
     form(method='POST')
+        if bookinstance
+            input(type='hidden', name='id', value=bookinstance._id)
+
         div.form-group
             label(for='book') Book:
             select#book.form-control(type='text', name='book', required)
-                option(value='') 
-                - for (var book in books) {
-                    option(value=books[book]._id, selected=(bookinstance && bookinstance.book == books[book]._id) ? 'selected' : '')= books[book].title
-                - }
-        div.form-group
+                option(value='')
+                each book in book_list
+                    if book._id
+                        option(value=book._id, selected=(bookinstance && bookinstance.book == book._id) ? 'selected' : '')= book.title
+                    else if book.id
+                        option(value=book.id, selected=(bookinstance && bookinstance.book == book.id) ? 'selected' : '')= book.title
+                div.form-group
             label(for='imprint') Imprint:
             input#imprint.form-control(type='text', name='imprint', required value=(undefined===bookinstance ? '' : bookinstance.imprint))
         div.form-group
