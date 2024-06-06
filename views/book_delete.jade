@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1=title
+    h2=book.title
+
+    if book_instances.length > 0
+        p This book has the following instances:
+        ul
+            each book_instance in book_instances
+                li
+                    a(href='/catalog/bookinstance/' + (book_instance._id ? book_instance._id : book_instance.id))=book_instance.status
+    else
+        p No instances of this book exist.
+
+    if errorMessage
+        div.alert.alert-danger= errorMessage
+    else
+        form(method='POST', action='/catalog/book/' + (book._id ? book._id : book.id) + '/delete')
+            button.btn.btn-danger(type='submit') Delete Book

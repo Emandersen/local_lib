@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1=title
+    h2=genre.name
+
+    if genre_books.length > 0
+        p This genre is associated with the following books:
+        ul
+            each book in genre_books
+                li
+                    a(href='/catalog/book/' + book._id)=book.title
+    else
+        p No books are associated with this genre.
+
+    if errorMessage
+        div.alert.alert-danger= errorMessage
+    else
+        form(method='POST', action='/catalog/genre/' + (genre._id ? genre._id : genre.id) + '/delete')
+            button.btn.btn-danger(type='submit') Delete Genre

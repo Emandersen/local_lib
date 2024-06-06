@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1 Search Results for "#{query}"
+
+    if !books.length && !authors.length
+        p No results found.
+
+    if books.length
+        h2 Books
+        ul
+            each book in books
+                li
+                    a(href='/book/#{book.id}')= book.title
+
+    if authors.length
+        h2 Authors
+        ul
+            each author in authors
+                li
+                    a(href='/author/#{author.id}')= author.name
