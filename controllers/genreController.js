@@ -187,7 +187,7 @@ exports.genre_update_post = async (req, res, next) => {
     if (process.env.DB_TYPE === 'mongodb') {
       const genre = new Genre({
         name: req.body.name,
-        _id: req.params.id // This is required, or a new ID will be assigned!
+        _id: req.params.id 
       });
       // Data from form is valid. Update the record.
       updatedGenre = await Genre.findByIdAndUpdate(req.params.id, genre, {});

@@ -5,9 +5,7 @@ const BookInstance = require("../models/bookinstance");
 
 const asyncHandler = require("express-async-handler");
 const {body, validationResult} = require("express-validator")
-//////////////////
-/* Display books*/
-//////////////////
+
 
 exports.index = asyncHandler(async (req, res, next) => {
   let numBooks, numBookInstances, numAvailableBookInstances, numAuthors, numGenres;
@@ -82,9 +80,7 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
   res.render("book_details", { title: book.title, book: book, book_instances: bookInstances });
 });
 
-////////////////
-/* Edit books */
-////////////////
+
 
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
@@ -133,8 +129,7 @@ exports.book_create_post = asyncHandler(async (req, res, next) => {
       await newBook.save();
     }
   } else {
-    // For MySQL, we don't have a validation result to check.
-    // We assume the data from the form is valid.
+    // For MySQL, no validation
     // Save the new Book object.
     const newBookId = await req.app.mySQLdatabase.insertBook(book.title, book.author, book.summary, book.isbn);
     // Create genre relations
@@ -244,7 +239,7 @@ exports.book_update_post = async (req, res, next) => {
         summary: req.body.summary,
         isbn: req.body.isbn,
         genre: (typeof req.body.genre === 'undefined') ? [] : req.body.genre,
-        _id: req.params.id // This is required, or a new ID will be assigned!
+        _id: req.params.id 
       });
       // Data from form is valid. Update the record.
       updatedBook = await Book.findByIdAndUpdate(req.params.id, book, {});

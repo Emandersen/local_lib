@@ -157,7 +157,7 @@ exports.author_delete_post = async (req, res, next) => {
       }
       res.redirect('/catalog/authors');
     } else {
-      // If the author has books, render the 'author delete' template
+      // If the author has books, render the "author delete" template
       res.render('author_delete', { title: 'Delete Author', author: author, author_books: allBooksByAuthor } );
     }
   } catch (err) {

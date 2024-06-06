@@ -6,13 +6,10 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 
 
-
-
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
 
 const app = express();
-
 
 
 const envs = {
