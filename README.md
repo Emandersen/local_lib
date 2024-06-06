@@ -4,6 +4,7 @@ Local Library is a web application that provides an online catalog for a small l
 
 ## Extra Requirements
 
+This is an assignment given in an AAU Course, and as part of the assignement a few extra requirements to the application was made.
 As part of the assignment, the project needs to be extended with the following features:
 
 ### Add photo for authors
@@ -100,3 +101,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Link to Github repo
+https://github.com/Emandersen/local_lib
