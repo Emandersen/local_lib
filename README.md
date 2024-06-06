@@ -48,6 +48,7 @@ As part of the assignment, the project needs to be extended with the following f
 3. Install the dependencies:
     The project has the following dependencies:
 
+    - `chalk`: ^5.3.0
     - `cookie-parser`: ~1.4.4
     - `debug`: ~2.6.9
     - `express`: ~4.16.1
@@ -58,20 +59,27 @@ As part of the assignment, the project needs to be extended with the following f
     - `luxon`: ^3.4.4
     - `mongoose`: ^8.2.1
     - `morgan`: ~1.9.1
+    - `multer`: ^1.4.5-lts.1
+    - `mysql2`: ^3.10.0
 
     You can install these dependencies by running the following command in your terminal:
 
     ```bash
     npm install
     ```
+
 4. Set up the `.env` file:
     Create a new file named `.env` in the root of your project directory and add the following lines:
 
     ```
     PORT=3000
-    MONGODB_USER=Your_database_username
-    MONGODB_PASS=Your_database_password
-    MONGODB_COLLECTION=Your_database_collection
+    MONGODB_USER=<MongoDB username>
+    MONGODB_PASS=<MongoDB password>
+    MONGODB_COLLECTION=<MongoDB Collection>
+    MYSQL_LOCALHOST=<MySQL host>
+    MYSQL_USER=<MySQL username>
+    MYSQL_PASS=<MySQL password>
+    MYSQL_DATABASE_NAME=<MySQL database name>
     ```
 
     Replace `Your_database_username`, `Your_database_password` and `Your_database_collection` with your MongoDB username, password and database collection, respectively.
@@ -84,6 +92,7 @@ As part of the assignment, the project needs to be extended with the following f
 ## Usage
 
 Open your web browser and navigate to `http://localhost:3000` to start using the Local Library application.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
